@@ -9,7 +9,7 @@ on:
    
 jobs:
  dhondumaharaj:
- runs-on: dhondu-maharaj
+ runs-on: ubuntu-latest
  steps:
  - name: dhondu maharaj rocks!
    run: echo dhondu maharaj
