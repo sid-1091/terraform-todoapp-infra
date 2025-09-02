@@ -7,4 +7,9 @@ on:
    - 'feature/**'
    - 'hotfix'
    
-    
+jobs:
+ dhondumaharaj:
+ runs-on: dhondu-maharaj
+ steps:
+ - name: dhondu maharaj rocks!
+   run: echo dhondu maharaj
