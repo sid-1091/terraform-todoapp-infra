@@ -8,8 +8,9 @@ on:
    - 'hotfix'
    
 jobs:
- dhondumaharaj:
- runs-on: ubuntu-latest
- steps:
- - name: dhondu maharaj rocks!
-   run: echo dhondu maharaj
+  dhondumaharaj:
+   runs-on: ubuntu-latest
+   steps:
+   - name: dhondu maharaj rocks!
+     run: echo dhondu maharaj
+
