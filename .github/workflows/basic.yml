@@ -1,11 +1,11 @@
 name: "Dhondu maharaj"
 
-on: 
- push:
-  branches:
-   - 'main'
-   - 'feature/**'
-   - 'hotfix'
+# on: 
+#  push:
+#   branches:
+#    - 'main'
+#    - 'feature/**'
+#    - 'hotfix'
    
 jobs:
   dhondumaharaj:
