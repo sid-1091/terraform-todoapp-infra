@@ -1,0 +1,98 @@
+name: infra-deployment
+
+on:
+ pull_request:
+   branches:
+   - main
+ push:
+   branches:
+   - main
+   
+  
+permissions: # Required for azure login
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-init-plan: # job id
+    runs-on: ubuntu-latest  # runner on which workflow will execute
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5.0.0
+
+      - name: install Terraform
+        uses: autero1/action-terraform@v3.0.1
+        with:
+          terraform-version: 1.3.0
+
+
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+         client-id:   # ClientId of the Azure Service principal created
+         tenant-id: # TenantId of the Azure Service principal created.
+         subscription-id: # Azure subscriptionId
+
+      - name: Terrafom fmt
+        id: fmt
+        run: terraform fmt -check
+        continue-on-error: true
+        working-directory: Envronment/dev
+     
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+        working-directory: Envronment/dev
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: Envronment/dev
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -input=false
+        continue-on-error: true
+        working-directory: Envronment/dev
+   
+    
+  terraform-apply: # job id
+    runs-on: ubuntu-latest  # runner on which workflow will execute
+    if: github.ref =='refs/head/main'
+    needs: terraform-init-plan
+    environment: dev
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5.0.0
+
+      - name: install Terraform
+        uses: autero1/action-terraform@v3.0.1
+        with:
+          terraform-version: 1.3.0
+
+
+      - name: Azure Login
+        uses: Azure/login@v2.3.0
+        with:
+         client-id:   # ClientId of the Azure Service principal created
+         tenant-id: # TenantId of the Azure Service principal created.
+         subscription-id: # Azure subscriptionId
+
+      - name: Terraform Init
+        id: init
+        run: terraform init -input=false
+        working-directory: Envronment/dev
+
+      - name: Terraform Apply
+        id: apply
+        run: terraform apply --auto-approve
+        working-directory: Envronment/dev
+
+
+               
+       
+      
+
+    
+
+      
