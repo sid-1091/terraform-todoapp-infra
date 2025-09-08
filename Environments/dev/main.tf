@@ -59,6 +59,8 @@ module "rg" {
 #     Environment = "dev"
 #   }
 # }
+
+
  module "pip" {
    source    = "../../Modules/azurerm_public_ip"
    pip_name  = "pip-dev-todoapp"
