@@ -1,7 +1,7 @@
 name: infra-deployment
 
 on:
- pull_request:
+ pull_request: # Jab koi main branch pe merge keliye pull request raise karega tab ye workflow chalega
    branches:
    - main
  push:
